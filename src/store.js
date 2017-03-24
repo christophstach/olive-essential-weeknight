@@ -42,6 +42,9 @@ const store = new Vuex.Store({
     },
     addCredentials(state, credentials) {
       state.credentials = [...state.credentials, credentials];
+    },
+    clearPromises(state) {
+      state.promises = [];
     }
   },
   getters: {
@@ -94,5 +97,7 @@ const store = new Vuex.Store({
     }
   }
 });
+
+store.commit('clearPromises');
 
 export default store;
