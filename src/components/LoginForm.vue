@@ -38,7 +38,7 @@
 
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
 
   export default {
     name: 'app-login-form',
@@ -55,6 +55,7 @@
       ])
     },
     methods: {
+
       submitForm(e) {
         e.preventDefault();
 
@@ -64,9 +65,12 @@
         this.loading = true;
         this.$store.dispatch('doLogin', {username, password})
           .then(() => this.loading = false)
+          .then(() => this.showAlert({text: 'Sie wurden erfolgreich eingeloggt!', type: 'alert-success'}))
           .then(() => this.$router.push('/credentials/add'));
-
-      }
+      },
+      ...mapActions([
+        'showAlert'
+      ])
     }
   }
 </script>

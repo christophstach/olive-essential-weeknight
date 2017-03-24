@@ -12,7 +12,12 @@ const store = new Vuex.Store({
       credentials: [],
       appBusy: false,
       promises: [],
-      alert: {}
+      alerts: [
+        {
+          text: 'test',
+          type: 'alert-warning'
+        }
+      ]
     },
     expires: 7 * 24 * 60 * 60 * 1e3
   })],
@@ -37,14 +42,23 @@ const store = new Vuex.Store({
     addPromise(state, promise) {
       state.promises = [...state.promises, promise];
     },
+    addAlert(state, alert) {
+      state.alerts = [alert, ...state.alerts];
+    },
     removePromise(state, promise) {
       state.promises = state.promises.filter((p) => p !== promise);
+    },
+    removeAlert(state, alert) {
+      state.alerts = state.alerts.filter((a) => a !== alert);
     },
     addCredentials(state, credentials) {
       state.credentials = [...state.credentials, credentials];
     },
     clearPromises(state) {
       state.promises = [];
+    },
+    clearAlerts(state) {
+      state.alerts = [];
     }
   },
   getters: {
@@ -56,6 +70,19 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    showAlert({commit}, {text, type}) {
+      let theAlert = {text, type, show: true};
+
+      setTimeout(() => {
+        theAlert.show = false;
+
+        setTimeout(() => {
+          commit('removeAlert', theAlert);
+        }, 1000);
+      }, 10000);
+
+      commit('addAlert', theAlert);
+    },
     async doLogin ({commit, state}, {username, password}) {
       let promise = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -99,5 +126,6 @@ const store = new Vuex.Store({
 });
 
 store.commit('clearPromises');
+store.commit('clearAlerts');
 
 export default store;

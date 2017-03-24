@@ -68,8 +68,12 @@
       ])
     },
     methods: {
+      doLogout() {
+        this.$store.dispatch('doLogout');
+        this.showAlert({text: 'Sie wurden erfolgreich ausgeloggt!', type: 'alert-success'});
+      },
       ...mapActions([
-        'doLogout'
+        'showAlert'
       ])
     }
   }

@@ -1,16 +1,30 @@
 <template>
+
+
   <div id="app">
     <app-navigation></app-navigation>
 
-    <div v-if="login">
-      <router-view></router-view>
-    </div>
-    <div v-else="login">
-      <app-login-form></app-login-form>
+    <div id="alerts" class="pt-2">
+      <div class="container">
+        <div class="alert alert-dismissible fade" role="alert" v-for="(alert, index) in alerts"
+             :class="[alert.type, {show: alert.show}]">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ alert.text }}
+
+        </div>
+      </div>
     </div>
 
-
-    <div v-if="alert !== null" class="mt-2 alert" :class="alert.type">{{ alert.message }}</div>
+    <div class="container">
+      <div v-if="login">
+        <router-view></router-view>
+      </div>
+      <div v-else="login">
+        <app-login-form></app-login-form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,7 +43,7 @@
         return this.$store.state;
       },
       ...mapState([
-        'jwtToken', 'alert'
+        'jwtToken', 'alerts'
       ]),
       ...mapGetters([
         'login'
@@ -42,6 +56,11 @@
 </script>
 
 <style>
+  #alerts {
+    position: absolute;
+    top: 54px;
+  }
+
   html, body {
     height: 100%;
   }

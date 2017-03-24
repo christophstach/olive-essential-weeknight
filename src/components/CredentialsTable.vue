@@ -24,7 +24,7 @@
 
 <style scoped="scoped">
   .login-table {
-    width: 800px;
+
   }
 </style>
 
