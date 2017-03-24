@@ -18,10 +18,6 @@
       </tr>
       </tbody>
     </table>
-
-    <div class="card-footer">
-
-    </div>
   </div>
 </template>
 

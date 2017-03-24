@@ -9,7 +9,6 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes: [
-    {path: '/', component: AppLoginForm},
     {path: '/credentials/add', component: AppCredentialsForm},
     {path: '/credentials/list', component: AppCredentialsTable}
   ]

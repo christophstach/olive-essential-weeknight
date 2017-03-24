@@ -2,7 +2,13 @@
   <div id="app">
     <app-navigation></app-navigation>
 
-    <router-view></router-view>
+    <div v-if="login">
+      <router-view></router-view>
+    </div>
+    <div v-else="login">
+      <app-login-form></app-login-form>
+    </div>
+
 
     <div v-if="alert !== null" class="mt-2 alert" :class="alert.type">{{ alert.message }}</div>
   </div>
@@ -10,6 +16,7 @@
 
 <script>
   import AppNavigation from './components/Navigation';
+  import AppLoginForm from './components/LoginForm';
   import { mapState, mapGetters } from 'vuex';
 
   export default {
@@ -29,7 +36,7 @@
       ])
     },
     components: {
-      AppNavigation
+      AppLoginForm, AppNavigation
     }
   }
 </script>

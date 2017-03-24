@@ -1,16 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersist from 'vuex-localstorage';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {
-    jwtToken: null,
-    credentials: [],
-    appBusy: false,
-    promises: [],
-    alert: {}
-  },
+  plugins: [createPersist({
+    namespace: 'olive-essential-weeknight',
+    initialState: {
+      jwtToken: null,
+      credentials: [],
+      appBusy: false,
+      promises: [],
+      alert: {}
+    },
+    expires: 7 * 24 * 60 * 60 * 1e3
+  })],
   mutations: {
     setToken(state, jwtToken) {
       try {
