@@ -59,14 +59,14 @@
       submitForm(e) {
         e.preventDefault();
 
-        let username = this.username;
-        let password = this.password;
+        const username = this.username;
+        const password = this.password;
 
         this.loading = true;
         this.$store.dispatch('doLogin', {username, password})
           .then(() => this.loading = false)
-          .then(() => this.showAlert({text: 'Sie wurden erfolgreich eingeloggt!', type: 'alert-success'}))
-          .then(() => this.$router.push('/credentials/add'));
+          .then(() => this.$router.push('/credentials/add'))
+          .then(() => this.showAlert({text: 'Sie wurden erfolgreich eingeloggt!', type: 'alert-success'}));
       },
       ...mapActions([
         'showAlert'

@@ -1,3 +1,5 @@
+// @flow
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersist from 'vuex-localstorage';

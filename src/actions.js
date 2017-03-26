@@ -1,17 +1,36 @@
+let $alert = 0;
+
 const actions = {
-  showAlert({commit}, {text, type}) {
-    let theAlert = {text, type, show: true};
 
-    setTimeout(() => {
-      theAlert.show = false;
-
+  /**
+   *
+   * @param commit
+   * @param text
+   * @param type
+   * @returns {Promise}
+   */
+  async showAlert({commit}, {text, type}) {
+    const $key = $alert++;
+    const theAlert = {text, type, $key};
+    let promise = new Promise((resolve, reject) => {
       setTimeout(() => {
         commit('removeAlert', theAlert);
-      }, 1000);
-    }, 10000);
+        resolve();
+      }, 10000);
+    });
 
     commit('addAlert', theAlert);
+
+    return promise;
   },
+  /**
+   *
+   * @param commit
+   * @param state
+   * @param username
+   * @param password
+   * @returns {Promise}
+   */
   async doLogin ({commit, state}, {username, password}) {
     let promise = new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -31,6 +50,13 @@ const actions = {
 
     return promise;
   },
+  /**
+   *
+   * @param commit
+   * @param state
+   * @param credentials
+   * @returns {Promise}
+   */
   async addCredentials({commit, state}, credentials) {
     let promise = new Promise((resolve, reject) => {
       setTimeout(() => {

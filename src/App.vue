@@ -4,25 +4,45 @@
   <div id="app">
     <app-navigation></app-navigation>
 
-    <div id="alerts" class="pt-2">
-      <div class="container">
-        <div class="alert alert-dismissible fade" role="alert" v-for="(alert, index) in alerts"
-             :class="[alert.type, {show: alert.show}]">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          {{ alert.text }}
-
+    <div class="alert-list">
+      <transition-group
+        appear
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
+        tag="div"
+        class="container pt-2"
+        name="alert-list"
+      >
+        <div v-for="(alert, index) in alerts" class="alert" role="alert" :key="alert.$key" :class="alert.type">
+          <div>{{ alert.text }}</div>
         </div>
-      </div>
+      </transition-group>
+
     </div>
+
 
     <div class="container">
       <div v-if="login">
-        <router-view></router-view>
+        <transition
+          key="component"
+          appear
+          mode="out-in"
+          enterActiveClass="animated flipInX"
+          enterLeaveClass="animated flipOutX"
+        >
+          <router-view></router-view>
+        </transition>
       </div>
       <div v-else="login">
-        <app-login-form></app-login-form>
+        <transition
+          key="component"
+          appear
+          mode="out-in"
+          enterActiveClass="animated flipInX"
+          enterLeaveClass="animated flipOutX"
+        >
+          <app-login-form></app-login-form>
+        </transition>
       </div>
     </div>
   </div>
@@ -56,9 +76,14 @@
 </script>
 
 <style>
-  #alerts {
+  .alert-list {
     position: absolute;
     top: 54px;
+    z-index: 10000;
+  }
+
+  .alert-list-move {
+    transition: transform 1s;
   }
 
   html, body {
@@ -71,28 +96,5 @@
     align-items: center;
     justify-content: center;
     padding-top: 54px;
-  }
-
-  .alert {
-
-    -webkit-animation-timing-function: ease;
-    -moz-animation-timing-function: ease;
-    -o-animation-timing-function: ease;
-    animation-timing-function: ease;
-  }
-
-  @keyframes cssAnimation {
-    0% {
-      opacity: 0;
-    }
-    16% {
-      opacity: 1;
-    }
-    84% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
   }
 </style>
