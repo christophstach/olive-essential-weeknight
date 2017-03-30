@@ -27,8 +27,8 @@
           key="component"
           appear
           mode="out-in"
-          enterActiveClass="animated flipInX"
-          enterLeaveClass="animated flipOutX"
+          enter-active-class="animated fadeIn"
+          leave-active-class="animated hinge"
         >
           <router-view></router-view>
         </transition>
@@ -38,8 +38,8 @@
           key="component"
           appear
           mode="out-in"
-          enterActiveClass="animated flipInX"
-          enterLeaveClass="animated flipOutX"
+          enter-active-class="animated shake"
+          leave-active-class="animated shake"
         >
           <app-login-form></app-login-form>
         </transition>
